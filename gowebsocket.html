@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Web sockt Test</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+	var sock=null;
+	var wsuri="ws://192.168.100.100:1112/ws"
+	window.onload=function(){
+		console.log("onload");
+		sock=new WebSocket(wsuri);
+		sock.onopen=function(){
+			console.log("connect to " + wsuri)	
+		}
+		sock.onclose=function(e){
+			console.log("connect close " + e.code +"!!")
+		}
+		sock.onmessage=function(e){
+			console.log("message received: " + e.data)
+		}
+
+		function send(){
+			var msg=docment.getElementById('message').value;
+			console.log(msg)
+			sock.send(msg);
+		}
+	}
+
+
+	</script>
+	<form>
+		<p>
+			message:<input type="test" name="test01" id="message" value="hellow go wabsocket">
+		</p>
+		<button onclick="send();">send</button>
+
+	</form>
+</body>
+</html>
