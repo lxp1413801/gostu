@@ -8,49 +8,34 @@
 	<script type="text/javascript">
 		
 	var sock=null;
-	var wsuri="ws://127.0.0.1:1112/ws";
+	var wsuri="ws://192.168.100.100:1112/ws"
 	window.onload=function(){
-		console.log("正在初始化……");
+		console.log("onload");
 		sock=new WebSocket(wsuri);
 		sock.onopen=function(){
-			console.log("连接到: " + wsuri);
+			console.log("connect to " + wsuri)	
 		}
 		sock.onclose=function(e){
-			console.log("连接关闭， " + e.code +"!!");
+			console.log("connect close " + e.code +"!!")
 		}
 		sock.onmessage=function(e){
-			console.log("从服务器接受到:: " + e.data);
-			var rtex= document.getElementById("received");
-			rtex.value=e.data;
-
+			console.log("message received: " + e.data)
 		}
 
-
+		function send(){
+			var msg=docment.getElementById('message').value;
+			console.log(msg)
+			sock.send(msg);
+		}
 	}
 
-	function bt_send(){
-		var msg="";
-		var tb=document.getElementById("message001");
-		msg=tb.value;
-		console.log("向服务器发送:"+ msg);
-		console.log("发送长度:" + msg.length);
-		sock.send(msg);
-		return false;
-	}
+
 	</script>
-
-
 	<form>
 		<p>
-			send:<input type="text" name="test01" id="message001">	
-			<button onclick="return bt_send();">send</button>
+			message:<input type="test" name="test01" id="message" value="hellow go wabsocket">
 		</p>
-		<p>
-			received:<input type="text" id="received">
-		</p>
-		
-
-
+		<button onclick="send();">send</button>
 
 	</form>
 </body>
